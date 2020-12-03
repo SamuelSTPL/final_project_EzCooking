@@ -1,12 +1,15 @@
-import React from "react";
+import React, { useContext } from "react";
 import { GiHamburgerMenu } from "react-icons/gi";
 import styled from "styled-components";
-import { ColorSet } from "../../global/ColorSet";
 
-export const BurgerMenu = ({ setOpen, open }) => {
-  console.log(open);
+import { ColorSet } from "../../global/ColorSet";
+import { MenuContext } from "../Context/MenuContext";
+
+export const BurgerMenu = () => {
+  const { openMenu, setOpenMenu } = useContext(MenuContext);
+
   return (
-    <HamburgerButton onClick={() => setOpen(!open)}>
+    <HamburgerButton onClick={() => setOpenMenu(!openMenu)}>
       <GiHamburgerMenu />
     </HamburgerButton>
   );

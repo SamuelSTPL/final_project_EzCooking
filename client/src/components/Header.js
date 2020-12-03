@@ -1,12 +1,15 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
 import { GiMeal } from "react-icons/gi";
 import { NavLink } from "react-router-dom";
 
 import { ColorSet } from "../global/ColorSet";
 import { BurgerMenu } from "./hamburgerMenu/BurgerMenu";
+import { MenuContext } from "./Context/MenuContext";
 
-export const Header = ({ setOpen, open }) => {
+export const Header = () => {
+  const { setOpenMenu } = useContext(MenuContext);
+
   return (
     <Wrapper>
       <TitleContainer>
@@ -20,23 +23,27 @@ export const Header = ({ setOpen, open }) => {
       <NavBar>
         <Ul>
           <Li>
-            <StyledNavLink exact to="/">
+            <StyledNavLink to="/home" onClick={() => setOpenMenu(false)}>
               Home
             </StyledNavLink>
           </Li>
           <Li>
-            <StyledNavLink exact to="/myrecipes">
+            <StyledNavLink
+              exact
+              to="/myrecipes"
+              onClick={() => setOpenMenu(false)}
+            >
               My Recipes
             </StyledNavLink>
           </Li>
           <Li>
-            <StyledNavLink exact to="/login">
+            <StyledNavLink exact to="/login" onClick={() => setOpenMenu(false)}>
               Log In
             </StyledNavLink>
           </Li>
         </Ul>
       </NavBar>
-      <BurgerMenu setOpen={setOpen} open={open} />
+      <BurgerMenu />
     </Wrapper>
   );
 };
@@ -107,6 +114,7 @@ const Ul = styled.ul`
 
 const Li = styled.li`
   transition: all 0.2s ease-in-out;
+  margin-right: 30px;
 
   @media (max-width: 500px) {
     margin-right: 0;
@@ -121,8 +129,12 @@ const Li = styled.li`
 const StyledNavLink = styled(NavLink)`
   color: white;
   text-decoration: none;
-  font-size: 1.5rem;
+  font-size: 2rem;
   padding: 5px;
+
+  @media (max-width: 500px) {
+    font-size: 1.5rem;
+  }
 
   &.active {
     color: ${ColorSet.primary};

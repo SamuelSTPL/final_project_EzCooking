@@ -1,17 +1,39 @@
 import React from "react";
+import { Redirect, Route } from "react-router-dom";
 import styled from "styled-components";
 
 import { Sidebar } from "./Sidebar";
-import { Menu } from "./hamburgerMenu/Menu";
 
-export const Homepage = ({ open, setOpen }) => {
+import {
+  QuickSearch,
+  Lunch,
+  MainCourse,
+  Vegan,
+  Vegetarian,
+} from "./pages/index";
+
+export const Homepage = () => {
   return (
     <Wrapper>
       <SidebarWrapper>
         <Sidebar />
       </SidebarWrapper>
-      <div>Homepage</div>
-      <Menu open={open} />
+      <Route exact path="/home/quicksearch">
+        <QuickSearch />
+      </Route>
+      <Route exact path="/home/lunch">
+        <Lunch />
+      </Route>
+      <Route exact path="/home/maincourse">
+        <MainCourse />
+      </Route>
+      <Route exact path="/home/vegetarian">
+        <Vegetarian />
+      </Route>
+      <Route exact path="/home/vegan">
+        <Vegan />
+      </Route>
+      <Redirect exact from="/" to="/home/quicksearch" />
     </Wrapper>
   );
 };

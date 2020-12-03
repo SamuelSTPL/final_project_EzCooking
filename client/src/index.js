@@ -1,10 +1,12 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import { MenuProvider } from "./components/Context/MenuContext";
+
 import App from "./App";
 
 ReactDOM.render(
-  <React.StrictMode>
+  <MenuProvider>
     <App />
-  </React.StrictMode>,
+  </MenuProvider>,
   document.getElementById("root")
 );
