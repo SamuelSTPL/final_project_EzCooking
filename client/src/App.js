@@ -11,7 +11,7 @@ import { Footer } from "./components/Footer";
 import { GlobalStyle } from "./global/GlobalStyle";
 import { Homepage } from "./components/Homepage";
 import { Menu } from "./components/hamburgerMenu/Menu";
-import { MyRecipes, Login } from "./pages/index";
+import { MyRecipes, Login } from "./components/pages/index";
 
 function App() {
   return (
