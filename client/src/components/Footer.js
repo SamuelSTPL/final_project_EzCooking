@@ -22,6 +22,9 @@ const Wrapper = styled.footer`
   width: 100%;
   background-color: ${ColorSet.dark};
   font-size: 1.1rem;
+  @media (max-width: 500px) {
+    font-size: 0.9rem;
+  }
 `;
 const Love = styled.span`
   color: ${ColorSet.primary};
@@ -29,4 +32,7 @@ const Love = styled.span`
   margin-left: 10px;
   font-size: 1.3rem;
   font-style: italic;
+  @media (max-width: 500px) {
+    font-size: 1.1rem;
+  }
 `;
