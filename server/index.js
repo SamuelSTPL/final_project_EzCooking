@@ -29,7 +29,7 @@ express()
   .use("/", express.static(__dirname + "/"))
 
   //Fetch Recepies from quick search filters
-  .post("/quicksearch", getRecipesFromQuickSearch)
+  .post("/quicksearch/:filters", getRecipesFromQuickSearch)
 
   //Fetch Recepies for each diet types
   .get("/diet/:diet", getRecipesFromDiet)

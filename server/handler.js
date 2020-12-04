@@ -5,14 +5,13 @@ const apiKey = process.env.SPOONACULAR_API;
 
 // TODO:
 // Randomize recipes for diet and type ??
+//Use Offset to implement a pagination
 
 //Quick Search
 const getRecipesFromQuickSearch = async (req, res) => {
   let { filters } = req.body;
 
-  console.log(filters);
-
-  //   apples,+flour,+sugar
+  //Filtering the array of params
   const filteredParams = filters.reduce((acc, item, index) => {
     if (!index) {
       return `${item},`;
@@ -23,8 +22,7 @@ const getRecipesFromQuickSearch = async (req, res) => {
     }
   }, "");
 
-  console.log(filteredParams);
-
+  //Defense
   if (!filters) {
     return res.status(404).json({
       status: 404,
@@ -34,7 +32,7 @@ const getRecipesFromQuickSearch = async (req, res) => {
   }
   try {
     const raw = await fetch(
-      `https://api.spoonacular.com/recipes/findByIngredients?apiKey=${apiKey}&ingredients=${filters}`,
+      `https://api.spoonacular.com/recipes/findByIngredients?apiKey=${apiKey}&ingredients=${filteredParams}`,
       {
         header: {
           "Content-Type": "application/json",
@@ -44,6 +42,7 @@ const getRecipesFromQuickSearch = async (req, res) => {
 
     const data = await raw.json();
 
+    //Sort by number of likes
     const sortedRecipes = sortRecepies(data);
 
     res
@@ -68,7 +67,7 @@ const getRecipesFromDiet = async (req, res) => {
 
   try {
     const raw = await fetch(
-      `https://api.spoonacular.com/recipes/complexSearch?apiKey=${apiKey}&diet=${category}`,
+      `https://api.spoonacular.com/recipes/complexSearch?apiKey=${apiKey}&diet=vegetarian&number=2`,
       {
         header: {
           "Content-Type": "application/json",
@@ -76,7 +75,13 @@ const getRecipesFromDiet = async (req, res) => {
       }
     );
     const data = await raw.json();
-    res.status(200).json({ status: 200, message: "Success", data: data });
+
+    // console.log(data);
+    //Sort by number of likes
+    const sortedRecipes = sortRecepies(data.results);
+    res
+      .status(200)
+      .json({ status: 200, message: "Success", data: sortedRecipes });
   } catch (error) {
     console.log(error.message);
   }
@@ -86,7 +91,6 @@ const getRecipesFromDiet = async (req, res) => {
 const getRecipesFromMealTypes = async (req, res) => {
   let mealType = req.params;
   console.log(mealType);
-
   if (!mealType) {
     return res.status(404).json({
       status: 404,
@@ -105,7 +109,12 @@ const getRecipesFromMealTypes = async (req, res) => {
       }
     );
     const data = await raw.json();
-    res.status(200).json({ status: 200, message: "Success", data: data });
+    console.log(data);
+    //Sort by number of likes
+    const sortedRecipes = await sortRecepies(data.results);
+    res
+      .status(200)
+      .json({ status: 200, message: "Success", data: sortedRecipes });
   } catch (error) {
     console.log(error.message);
   }
@@ -114,8 +123,6 @@ const getRecipesFromMealTypes = async (req, res) => {
 //Id
 const getRecipeFromId = async (req, res) => {
   let { id } = req.params;
-
-  console.log(id);
 
   if (!id) {
     return res.status(404).json({
