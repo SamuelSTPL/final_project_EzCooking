@@ -11,10 +11,10 @@ export const Sidebar = () => {
         <Link to="/home/quicksearch">Quick Search</Link>
       </Li>
       <Li>
-        <Link to="/home/lunch">Lunch Recipes</Link>
+        <Link to="/home/maincourse">Main Course Recipes</Link>
       </Li>
       <Li>
-        <Link to="/home/maincourse">Main Course Recipes</Link>
+        <Link to="/home/dessert">Dessert Recipes</Link>
       </Li>
       <Li>
         <Link to="/home/vegetarian">Vegetarian Recipes</Link>

@@ -9,7 +9,7 @@ const initialState = {
     recipes: [],
     pageNumber: 0,
   },
-  lunch: {
+  dessert: {
     recipes: [],
     pageNumber: 0,
   },

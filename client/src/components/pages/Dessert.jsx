@@ -7,20 +7,20 @@ import {
   receivedRecipesData,
 } from "../../reducers/actions";
 
-export const MainCourse = () => {
+export const Dessert = () => {
   const dispatch = useDispatch();
   let filteredRecipes = useSelector((state) => {
-    return state.recipesReducer.mainCourse.recipes;
+    return state.recipesReducer.dessert.recipes;
   });
   console.log(filteredRecipes);
 
   const fetchRecipesFromType = async () => {
     dispatch(requestRecipesData());
     try {
-      const res = await fetch(`/type/main`);
+      const res = await fetch(`/type/dessert`);
       const json = await res.json();
       console.log(json);
-      dispatch(receivedRecipesData({ recipes: json.data, type: "mainCourse" }));
+      dispatch(receivedRecipesData({ recipes: json.data, type: "dessert" }));
     } catch (error) {
       dispatch(receivedRecipesDataError());
       console.log(error.message);

@@ -13,11 +13,11 @@ export const Menu = () => {
       <Link to="/home/quicksearch" onClick={() => setOpenMenu(!openMenu)}>
         Quick Search
       </Link>
-      <Link to="/home/lunch" onClick={() => setOpenMenu(!openMenu)}>
-        Lunch Recipes
-      </Link>
       <Link to="/home/maincourse" onClick={() => setOpenMenu(!openMenu)}>
         Main Course Recipes
+      </Link>
+      <Link to="/home/dessert" onClick={() => setOpenMenu(!openMenu)}>
+        Dessert Recipes
       </Link>
       <Link to="/home/vegetarian" onClick={() => setOpenMenu(!openMenu)}>
         Vegetarian Recipes

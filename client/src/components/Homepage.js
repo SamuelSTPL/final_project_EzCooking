@@ -6,7 +6,7 @@ import { Sidebar } from "./Sidebar";
 
 import {
   QuickSearch,
-  Lunch,
+  Dessert,
   MainCourse,
   Vegan,
   Vegetarian,
@@ -21,8 +21,8 @@ export const Homepage = () => {
       <Route exact path="/home/quicksearch">
         <QuickSearch />
       </Route>
-      <Route exact path="/home/lunch">
-        <Lunch />
+      <Route exact path="/home/dessert">
+        <Dessert />
       </Route>
       <Route exact path="/home/maincourse">
         <MainCourse />
