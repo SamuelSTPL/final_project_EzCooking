@@ -32,7 +32,7 @@ const getRecipesFromQuickSearch = async (req, res) => {
   }
   try {
     const raw = await fetch(
-      `https://api.spoonacular.com/recipes/findByIngredients?apiKey=${apiKey}&ingredients=${filteredParams}`,
+      `https://api.spoonacular.com/recipes/findByIngredients?apiKey=${apiKey}&ingredients=${filteredParams}&number=10`,
       {
         header: {
           "Content-Type": "application/json",
@@ -55,19 +55,20 @@ const getRecipesFromQuickSearch = async (req, res) => {
 
 //Diet
 const getRecipesFromDiet = async (req, res) => {
-  let category = req.params;
+  console.log(req.params);
+  let { diet } = req.params;
 
-  if (!category) {
+  if (!diet) {
     return res.status(404).json({
       status: 404,
       message: "Please enter valid category",
-      data: category,
+      data: diet,
     });
   }
 
   try {
     const raw = await fetch(
-      `https://api.spoonacular.com/recipes/complexSearch?apiKey=${apiKey}&diet=vegetarian&number=2`,
+      `https://api.spoonacular.com/recipes/complexSearch?apiKey=${apiKey}&diet=${diet}&number=10`,
       {
         header: {
           "Content-Type": "application/json",
@@ -89,19 +90,20 @@ const getRecipesFromDiet = async (req, res) => {
 
 //Type
 const getRecipesFromMealTypes = async (req, res) => {
-  let mealType = req.params;
-  console.log(mealType);
-  if (!mealType) {
+  console.log(req.params);
+  let { type } = req.params;
+  if (!type) {
     return res.status(404).json({
       status: 404,
       message: "Please enter valid type of meal",
-      data: mealType,
+      data: type,
     });
   }
 
   try {
+    console.log(type);
     const raw = await fetch(
-      `https://api.spoonacular.com/recipes/complexSearch?apiKey=${apiKey}&type=${mealType}`,
+      `https://api.spoonacular.com/recipes/complexSearch?apiKey=${apiKey}&type=${type}&number=10`,
       {
         header: {
           "Content-Type": "application/json",

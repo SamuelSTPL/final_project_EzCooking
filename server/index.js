@@ -36,6 +36,7 @@ express()
 
   //Fetch Recepies for each meal types
   .get("/type/:type", getRecipesFromMealTypes)
+  // .get("/type", getRecipesFromMealTypes)
 
   //Fetch a single Recipe by Id
   .get("/recipe/:id", getRecipeFromId)
