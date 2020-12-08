@@ -3,21 +3,17 @@ import styled from "styled-components";
 
 export const DropdownMenus = ({ data, setValue, value }) => {
   const handleChange = (ev) => {
-    console.log(ev.target.value);
     setValue(ev.target.value);
   };
-  console.log("value", value);
 
   return (
     <List
       defaultValue={"none"}
       onChange={(ev) => {
-        // console.log(ev);
         handleChange(ev);
       }}
     >
       {data.map((item) => {
-        // console.log(item);
         return (
           <Items key={item.name} value={item.name}>
             {item.name}
@@ -28,5 +24,16 @@ export const DropdownMenus = ({ data, setValue, value }) => {
   );
 };
 
-const List = styled.select``;
+const List = styled.select`
+  border: none;
+  &:focus {
+    outline: none;
+  }
+  @media (max-width: 500px) {
+    background-color: white;
+    border-radius: 10px;
+    height: 25px;
+    padding: 5px 5px 5px 10px;
+  }
+`;
 const Items = styled.option``;

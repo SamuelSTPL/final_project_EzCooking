@@ -24,7 +24,7 @@ const initialState = {
 };
 
 export const recipesReducer = (state = initialState, action) => {
-  console.log(action.type);
+  // console.log(action.type);
   switch (action.type) {
     case "REQUEST_RECIPES_DATA": {
       return {
