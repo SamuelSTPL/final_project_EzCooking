@@ -3,6 +3,7 @@ import { Redirect, Route } from "react-router-dom";
 import styled from "styled-components";
 
 import { Sidebar } from "./Sidebar";
+import { ColorSet } from "../global/ColorSet";
 
 import {
   QuickSearch,
@@ -40,6 +41,9 @@ export const Homepage = () => {
 
 const Wrapper = styled.div`
   display: flex;
+  @media (max-width: 500px) {
+    background-color: rgba(130, 183, 75, 0.5);
+  }
 `;
 const SidebarWrapper = styled.div`
   width: 20%;

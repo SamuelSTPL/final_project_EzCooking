@@ -24,12 +24,12 @@ express()
   })
   .use(morgan("tiny"))
   .use(express.static("./server/assets"))
-  .use(bodyParser.json())
+  .use(express.json())
   .use(express.urlencoded({ extended: false }))
   .use("/", express.static(__dirname + "/"))
 
   //Fetch Recepies from quick search filters
-  .post("/quicksearch/:filters", getRecipesFromQuickSearch)
+  .post("/quicksearch", getRecipesFromQuickSearch)
 
   //Fetch Recepies for each diet types
   .get("/diet/:diet", getRecipesFromDiet)

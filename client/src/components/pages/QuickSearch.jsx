@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
 
@@ -7,68 +7,56 @@ import {
   receivedRecipesDataError,
   receivedRecipesData,
 } from "../../reducers/actions";
-import { Filters } from "../FiltersDropdowns/Filters";
+import { FiltersContext } from "../Context/FiltersContext";
+import { Filters } from "../Filters/Filters";
+import { FiltersDisplay } from "../Filters/FiltersDisplay";
 
 export const QuickSearch = () => {
-  const [ingredientFilters, setIngredientFilters] = useState([]);
-  const [mealFilters, setMealFilters] = useState("");
-  const [dietFilters, setDietFilters] = useState("");
+  const { combinedFilters } = useContext(FiltersContext);
 
   const dispatch = useDispatch();
   let filteredRecipes = useSelector((state) => {
-    return state.recipesReducer.mainCourse.recipes;
+    return state.recipesReducer.filtered.recipes;
   });
 
-  console.log(filteredRecipes);
+  console.log("Returned recipes from BE", filteredRecipes);
 
+  //Fetch recipes
   const fetchRecipesFromQuickSearch = async () => {
-    dispatch(requestRecipesData());
-
-    let filters = {};
-    if (ingredientFilters) {
-      filters.ingredientFilters = ingredientFilters;
-    }
-    if (mealFilters) {
-      filters.mealFilters = mealFilters;
-    }
-    if (ingredientFilters) {
-      filters.dietFilters = dietFilters;
-    }
-
+    // dispatch(requestRecipesData());
     try {
-      const res = await fetch(`/type/quicksearch`, {
+      console.log("Combined filters FE", combinedFilters);
+      console.log("Body", JSON.stringify(combinedFilters));
+      const res = await fetch(`/quicksearch`, {
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify(combinedFilters),
         method: "POST",
-        body: JSON.stringify(filters),
+        // body: JSON.stringify({ text: "try" }),
       });
+      console.log("Res:", res);
       const json = await res.json();
       console.log(json);
-      dispatch(receivedRecipesData({ recipes: json.data, type: "mainCourse" }));
+      dispatch(receivedRecipesData({ recipes: json.data, type: "filtered" }));
     } catch (error) {
       dispatch(receivedRecipesDataError());
       console.log(error.message);
     }
   };
 
-  useEffect(() => {
-    dispatch(requestRecipesData());
-    // fetchRecipesFromQuickSearch();
-  }, [ingredientFilters, mealFilters, dietFilters]);
+  const handleClick = () => {
+    fetchRecipesFromQuickSearch();
+  };
 
-  console.log(ingredientFilters);
-  // console.log(mealFilters);
-  // console.log(dietFilters);
   return (
     <Wrapper>
-      <Filters
-        setIngredientFilters={setIngredientFilters}
-        setMealFilters={setMealFilters}
-        setDietFilters={setDietFilters}
-        mealFilters={mealFilters}
-        dietFilters={dietFilters}
-      />
+      <Filters />
+      <FiltersDisplay />
+      <button onClick={() => handleClick()}>I'm Hungry!</button>
       {filteredRecipes ? (
         filteredRecipes.map((recipe) => {
-          return <div>{recipe.title}</div>;
+          return <li key={recipe.title}>{recipe.title}</li>;
         })
       ) : (
         <div>Loading...</div>

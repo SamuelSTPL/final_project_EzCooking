@@ -9,21 +9,27 @@ const apiKey = process.env.SPOONACULAR_API;
 
 //Quick Search
 const getRecipesFromQuickSearch = async (req, res) => {
-  let { filters } = req.body;
+  let { ingredientFilters, mealFilters, dietFilters } = req.body;
+  // console.log("Req", req.body);
 
   //Filtering the array of params
-  const filteredParams = filters.reduce((acc, item, index) => {
-    if (!index) {
-      return `${item},`;
-    } else if (index !== filters.length - 1) {
-      return acc + `+${item},`;
-    } else {
-      return acc + `+${item}`;
-    }
-  }, "");
+  const filteredIngredientsParams = ingredientFilters?.reduce(
+    (acc, item, index) => {
+      if (!index) {
+        return `${item}`;
+      } else if (index !== filters.length - 1) {
+        return acc + `+${item},`;
+      } else {
+        return acc + `+${item}`;
+      }
+    },
+    ""
+  );
+
+  // console.log(filteredIngredientsParams);
 
   //Defense
-  if (!filters) {
+  if (!ingredientFilters && !mealFilters && !dietFilters) {
     return res.status(404).json({
       status: 404,
       message: "Please enter valid filters",
@@ -31,14 +37,22 @@ const getRecipesFromQuickSearch = async (req, res) => {
     });
   }
   try {
-    const raw = await fetch(
-      `https://api.spoonacular.com/recipes/findByIngredients?apiKey=${apiKey}&ingredients=${filteredParams}&number=10`,
-      {
-        header: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
+    let baseString = `https://api.spoonacular.com/recipes/findByIngredients?apiKey=${apiKey}&number=10`;
+    if (mealFilters) {
+      baseString += `&type=${mealFilters}`;
+    }
+    if (dietFilters) {
+      baseString += `&diet=${dietFilters}`;
+    }
+    if (filteredIngredientsParams) {
+      baseString += `&ingredients=${filteredIngredientsParams}`;
+    }
+    console.log(baseString);
+    let raw = await fetch(`${baseString}`, {
+      header: {
+        "Content-Type": "application/json",
+      },
+    });
 
     const data = await raw.json();
 
