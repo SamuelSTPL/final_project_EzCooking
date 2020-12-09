@@ -2,6 +2,8 @@ import React, { useState, useContext } from "react";
 import styled from "styled-components";
 import { FiltersContext } from "../Context/FiltersContext";
 
+import { ColorSet } from "../../global/ColorSet";
+
 export const IngredientsFilter = () => {
   const [input, setInput] = useState("");
   const { setIngredientFilters } = useContext(FiltersContext);
@@ -30,7 +32,7 @@ export const IngredientsFilter = () => {
       <Label>Add up to 3 ingredients!</Label>
       <InputContainer>
         <Input value={input} type="text" onChange={handleChange}></Input>
-        <Submit type="submit">Add Ingredient</Submit>
+        <Submit type="submit">Add</Submit>
       </InputContainer>
     </IngredientsContainer>
   );
@@ -52,24 +54,34 @@ const Label = styled.label`
 const InputContainer = styled.div`
   @media (max-width: 500px) {
     margin-top: 20px;
+    display: flex;
+    justify-content: center;
   }
 `;
 
 const Input = styled.input`
+  font-size: 1.5rem;
+  padding-left: 10px;
   &:focus {
     outline: none;
   }
   @media (max-width: 500px) {
     border-radius: 10px;
-    height: 30px;
+    height: 40px;
     border: none;
+    width: 230px;
   }
 `;
 const Submit = styled.button`
   @media (max-width: 500px) {
+    font-weight: bold;
+    font-size: 1.1rem;
     border-radius: 10px;
     border: none;
-    height: 30px;
+    height: 40px;
+    width: 100px;
     margin-left: 15px;
+    color: ${ColorSet.primary};
+    background-color: ${ColorSet.dark};
   }
 `;

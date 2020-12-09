@@ -10,23 +10,6 @@ const apiKey = process.env.SPOONACULAR_API;
 //Quick Search
 const getRecipesFromQuickSearch = async (req, res) => {
   let { ingredientFilters, mealFilters, dietFilters } = req.body;
-  // console.log("Req", req.body);
-
-  //Filtering the array of params
-  const filteredIngredientsParams = ingredientFilters?.reduce(
-    (acc, item, index) => {
-      if (!index) {
-        return `${item}`;
-      } else if (index !== filters.length - 1) {
-        return acc + `+${item},`;
-      } else {
-        return acc + `+${item}`;
-      }
-    },
-    ""
-  );
-
-  // console.log(filteredIngredientsParams);
 
   //Defense
   if (!ingredientFilters && !mealFilters && !dietFilters) {
@@ -37,17 +20,19 @@ const getRecipesFromQuickSearch = async (req, res) => {
     });
   }
   try {
-    let baseString = `https://api.spoonacular.com/recipes/findByIngredients?apiKey=${apiKey}&number=10`;
+    //Add to fetch call string depending on add filters
+    let baseString = `https://api.spoonacular.com/recipes/complexSearch?apiKey=${apiKey}&number=10`;
     if (mealFilters) {
       baseString += `&type=${mealFilters}`;
     }
     if (dietFilters) {
       baseString += `&diet=${dietFilters}`;
     }
-    if (filteredIngredientsParams) {
-      baseString += `&ingredients=${filteredIngredientsParams}`;
+    if (ingredientFilters.length > 0) {
+      baseString += `&includeIngredients=${ingredientFilters}`;
     }
-    console.log(baseString);
+    // console.log(baseString);
+
     let raw = await fetch(`${baseString}`, {
       header: {
         "Content-Type": "application/json",
@@ -55,9 +40,10 @@ const getRecipesFromQuickSearch = async (req, res) => {
     });
 
     const data = await raw.json();
+    console.log(data.results);
 
     //Sort by number of likes
-    const sortedRecipes = sortRecepies(data);
+    const sortedRecipes = sortRecepies(data.results);
 
     res
       .status(200)
