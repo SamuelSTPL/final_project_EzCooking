@@ -4,9 +4,7 @@ import styled from "styled-components";
 import { FiltersContext } from "../Context/FiltersContext";
 
 export const FiltersDisplay = () => {
-  const { ingredientFilters, setIngredientFilters } = useContext(
-    FiltersContext
-  );
+  const { ingredientFilters } = useContext(FiltersContext);
 
   return (
     <Wrapper>
@@ -17,14 +15,11 @@ export const FiltersDisplay = () => {
               return <Filter key={filter}>{filter}</Filter>;
             })}
           </List>
-          <ClearFilters onClick={() => setIngredientFilters([])}>
-            Clear
-          </ClearFilters>
         </FiltersContainer>
       ) : (
-        <div>
-          <p>No ingredients added</p>
-        </div>
+        <FiltersContainer>
+          <NoFilter>No ingredients added</NoFilter>
+        </FiltersContainer>
       )}
     </Wrapper>
   );
@@ -38,11 +33,14 @@ const Wrapper = styled.div`
 
 const FiltersContainer = styled.div`
   @media (max-width: 500px) {
+    position: relative;
     margin: auto;
     width: 90%;
     display: flex;
     flex-direction: column;
     background-color: white;
+    height: 60px;
+    border-radius: 10px;
   }
 `;
 const List = styled.ul`
@@ -52,13 +50,17 @@ const List = styled.ul`
   }
 `;
 const Filter = styled.li`
-  font-size: 2rem;
+  font-size: 1.5rem;
   @media (max-width: 500px) {
     margin: 0px 20px;
   }
 `;
-const ClearFilters = styled.button`
+
+const NoFilter = styled.p`
   @media (max-width: 500px) {
     align-self: center;
+    margin-top: 1.2rem;
+    color: gray;
+    font-style: italic;
   }
 `;
