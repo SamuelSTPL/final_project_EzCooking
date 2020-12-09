@@ -67,7 +67,7 @@ const Input = styled.input`
   }
   @media (max-width: 500px) {
     border-radius: 10px;
-    height: 40px;
+    height: 30px;
     border: none;
     width: 230px;
   }
@@ -78,7 +78,7 @@ const Submit = styled.button`
     font-size: 1.1rem;
     border-radius: 10px;
     border: none;
-    height: 40px;
+    height: 30px;
     width: 100px;
     margin-left: 15px;
     color: ${ColorSet.primary};
