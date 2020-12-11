@@ -2,13 +2,15 @@ import React, { useContext, useRef, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import styled from "styled-components";
 
-import { AuthContext } from "../Context/AuthContext";
 import { ColorSet } from "../../global/ColorSet";
+import { AuthContext } from "../Context/AuthContext";
 
-export const Login = () => {
+export const SignUp = () => {
+  const nameRef = useRef();
   const emailRef = useRef();
   const passwordRef = useRef();
-  const { login } = useContext(AuthContext);
+  const passwordComfirmRef = useRef();
+  const { signUp } = useContext(AuthContext);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const history = useHistory();
@@ -16,35 +18,44 @@ export const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    if (passwordRef.current.value !== passwordComfirmRef.current.value) {
+      return setError("Passwords do not match");
+    }
     try {
       setError("");
       setLoading(true);
-      await login(emailRef.current.value, passwordRef.current.value);
+      await signUp(
+        emailRef.current.value,
+        passwordRef.current.value,
+        nameRef.current.value
+      );
+
       history.push("/");
     } catch {
-      setError("Failed to login");
+      setError("Failed to create an account");
     }
     setLoading(false);
   };
   return (
     <Wrapper>
       <FormContainer>
-        <Title>Login</Title>
+        <Title>Sign Up</Title>
         <Form onSubmit={handleSubmit}>
           {error && <MessageContainer>{error}</MessageContainer>}
-          <Label>Email:</Label>
+          <Label>Name</Label>
+          <Inputs type="text" ref={nameRef} />
+          <Label>Email</Label>
           <Inputs type="email" ref={emailRef} />
-
-          <Label>Password:</Label>
+          <Label>Password</Label>
           <Inputs type="password" ref={passwordRef} required />
-
+          <Label>Password Comfirmation</Label>
+          <Inputs type="password" ref={passwordComfirmRef} required />
           <Button disabled={loading} type="submit">
-            Login
+            Sign Up
           </Button>
         </Form>
         <OtherOptionsContainer>
-          <StyledLink to="/signup">Sign Up</StyledLink>
-          <ForgotLink to="/forgot-password">Forgot Password?</ForgotLink>
+          <StyledLink to="/login">Login</StyledLink>
         </OtherOptionsContainer>
       </FormContainer>
     </Wrapper>
@@ -71,7 +82,7 @@ const FormContainer = styled.div`
     align-items: center;
     width: 75%;
     margin: auto;
-    height: 590px;
+    height: 670px;
   }
 `;
 
@@ -79,7 +90,7 @@ const Form = styled.form`
   @media (max-width: 500px) {
     display: flex;
     flex-direction: column;
-    margin-top: 20px;
+    margin-top: 0px;
     width: 80%;
     border-bottom: 1px solid ${ColorSet.dark};
   }
@@ -91,7 +102,7 @@ const Title = styled.p`
   font-style: italic;
   @media (max-width: 500px) {
     font-size: 3rem;
-    margin-top: 40px;
+    margin-top: 20px;
   }
 `;
 
@@ -160,13 +171,6 @@ const StyledLink = styled(Link)`
   @media (max-width: 500px) {
     font-size: 1.2rem;
     margin-top: 10px;
-  }
-`;
-
-const ForgotLink = styled(StyledLink)`
-  color: ${ColorSet.red};
-  &:hover {
-    border-bottom: 1px solid ${ColorSet.red};
   }
 `;
 

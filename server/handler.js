@@ -4,7 +4,6 @@ const { sortRecepies } = require("./Utils/utils");
 const apiKey = process.env.SPOONACULAR_API;
 
 // TODO:
-// Randomize recipes for diet and type ??
 //Use Offset to implement a pagination
 
 //Quick Search
@@ -21,7 +20,7 @@ const getRecipesFromQuickSearch = async (req, res) => {
   }
   try {
     //Add to fetch call string depending on add filters
-    let baseString = `https://api.spoonacular.com/recipes/complexSearch?apiKey=${apiKey}&number=10`;
+    let baseString = `https://api.spoonacular.com/recipes/complexSearch?apiKey=${apiKey}&number=100`;
     if (mealFilters) {
       baseString += `&type=${mealFilters}`;
     }
@@ -68,7 +67,7 @@ const getRecipesFromDiet = async (req, res) => {
 
   try {
     const raw = await fetch(
-      `https://api.spoonacular.com/recipes/complexSearch?apiKey=${apiKey}&diet=${diet}&number=10`,
+      `https://api.spoonacular.com/recipes/complexSearch?apiKey=${apiKey}&diet=${diet}&number=100`,
       {
         header: {
           "Content-Type": "application/json",
@@ -103,7 +102,7 @@ const getRecipesFromMealTypes = async (req, res) => {
   try {
     console.log(type);
     const raw = await fetch(
-      `https://api.spoonacular.com/recipes/complexSearch?apiKey=${apiKey}&type=${type}&number=10`,
+      `https://api.spoonacular.com/recipes/complexSearch?apiKey=${apiKey}&type=${type}&number=100`,
       {
         header: {
           "Content-Type": "application/json",
@@ -150,9 +149,39 @@ const getRecipeFromId = async (req, res) => {
   }
 };
 
+//Ids
+const getRecipesFromId = async (req, res) => {
+  let { ids } = req.params;
+
+  console.log(ids);
+  if (!ids) {
+    return res.status(404).json({
+      status: 404,
+      message: "Please enter valid recipe id",
+      data: id,
+    });
+  }
+
+  try {
+    const raw = await fetch(
+      `https://api.spoonacular.com/recipes/informationBulk?apiKey=${apiKey}?ids=${ids}?`,
+      {
+        header: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    const data = await raw.json();
+    res.status(200).json({ status: 200, message: "Success", data: data });
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
 module.exports = {
   getRecipesFromQuickSearch,
   getRecipesFromDiet,
   getRecipesFromMealTypes,
   getRecipeFromId,
+  getRecipesFromId,
 };

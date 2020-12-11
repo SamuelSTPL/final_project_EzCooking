@@ -11,7 +11,12 @@ import { Footer } from "./components/Footer";
 import { GlobalStyle } from "./global/GlobalStyle";
 import { Homepage } from "./components/Homepage";
 import { Menu } from "./components/hamburgerMenu/Menu";
-import { MyRecipes, Login } from "./components/pages/index";
+import {
+  MyRecipes,
+  Login,
+  SignUp,
+  ForgotPassword,
+} from "./components/pages/index";
 
 function App() {
   return (
@@ -19,15 +24,11 @@ function App() {
       <GlobalStyle />
       <Header />
       <Switch>
-        <Route path="/home">
-          <Homepage />
-        </Route>
-        <Route exact path="/myrecipes">
-          <MyRecipes />
-        </Route>
-        <Route exact path="/login">
-          <Login />
-        </Route>
+        <Route path="/home" component={Homepage} />
+        <Route exact path="/myrecipes" component={MyRecipes} />
+        <Route exact path="/login" component={Login} />
+        <Route exact path="/signup" component={SignUp} />
+        <Route exact path="/forgot-password" component={ForgotPassword} />
         <Redirect exact from="/" to="/home" />
       </Switch>
       <Menu />

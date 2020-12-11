@@ -5,6 +5,8 @@ import { Vegetarian } from "./Vegetarian";
 import { Vegan } from "./Vegan";
 import { MyRecipes } from "./MyRecipes";
 import { Login } from "./Login";
+import { SignUp } from "./SignUp";
+import { ForgotPassword } from "./ForgotPassword";
 
 export {
   QuickSearch,
@@ -14,4 +16,6 @@ export {
   Vegetarian,
   MyRecipes,
   Login,
+  SignUp,
+  ForgotPassword,
 };
