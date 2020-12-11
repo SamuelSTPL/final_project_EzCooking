@@ -12,11 +12,9 @@ import {
 
 export const Dessert = () => {
   const dispatch = useDispatch();
-  // let filteredRecipes = useSelector((state) => {
-  //   return state.recipesReducer.dessert.recipes;
-  // });
-
-  let filteredRecipes;
+  let filteredRecipes = useSelector((state) => {
+    return state.recipesReducer.dessert.recipes;
+  });
 
   const fetchRecipesFromType = async () => {
     dispatch(requestRecipesData());

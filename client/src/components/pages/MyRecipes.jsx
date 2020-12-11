@@ -2,28 +2,25 @@ import React, { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
 
 import { AuthContext } from "../Context/AuthContext";
-import { db } from "../../firebase";
+import { Link, useHistory } from "react-router-dom";
 
 export const MyRecipes = () => {
-  const { currentUserId } = useContext(AuthContext);
-  const [currentUser, setCurrentUser] = useState();
+  const { currentUserId, signOut, getCurrentUser, currentUser } = useContext(
+    AuthContext
+  );
+  const history = useHistory();
+  const [favoritesRecipe, setFavoritesRecipe] = useState([]);
 
-  console.log(currentUser);
-  // console.log(currentUserId);
+  // let favoritesRecipe = [];
+  // console.log(currentUser);
 
-  const getCurrentUser = () => {
-    db.collection("users")
-      .doc(currentUserId)
-      .get()
-      .then((doc) => {
-        let data = doc.data();
-        setCurrentUser(data);
-        // console.log(currentUser);
-      });
+  const fetchFavorites = async () => {
+    //Fetch all recipes from the array
   };
 
   useEffect(() => {
     getCurrentUser();
+    fetchFavorites();
   }, [currentUserId]);
 
   return (
@@ -31,13 +28,29 @@ export const MyRecipes = () => {
       {currentUser ? (
         <div>
           Hi {currentUser.name}
-          {currentUser.favorites}
+          {favoritesRecipe &&
+            favoritesRecipe.map((favoriteRecipe) => {
+              return <li key={favoriteRecipe.title}>{favoriteRecipe}</li>;
+            })}
+          <button
+            onClick={() => {
+              signOut();
+              history.push("/");
+            }}
+          >
+            Sign Out
+          </button>
         </div>
       ) : (
-        <div>You need an accout to save your favorite recipes!</div>
+        <div>
+          You need an accout to save your favorite recipes!
+          <Link to="/signup">Sign me up!</Link>
+        </div>
       )}
     </Wrapper>
   );
 };
 
-const Wrapper = styled.div``;
+const Wrapper = styled.div`
+  height: 100%;
+`;

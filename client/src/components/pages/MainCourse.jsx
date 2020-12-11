@@ -9,13 +9,21 @@ import {
   receivedRecipesDataError,
   receivedRecipesData,
 } from "../../reducers/actions";
+import { useHistory } from "react-router-dom";
 
 export const MainCourse = () => {
+  const history = useHistory();
   const dispatch = useDispatch();
+
   let filteredRecipes = useSelector((state) => {
     return state.recipesReducer.mainCourse.recipes;
   });
+
   console.log(filteredRecipes);
+
+  const handleClick = (id) => {
+    history.push(`/recipe-details/${id}`);
+  };
 
   const fetchRecipesFromType = async () => {
     dispatch(requestRecipesData());
@@ -40,8 +48,8 @@ export const MainCourse = () => {
       {filteredRecipes ? (
         filteredRecipes.map((recipe) => {
           return (
-            <RecipesContainer>
-              <Recipe>
+            <RecipesContainer key={recipe.id}>
+              <Recipe onClick={() => handleClick(recipe.id)}>
                 <Img src={recipe.image} />
                 <Title>{recipe.title}</Title>
               </Recipe>

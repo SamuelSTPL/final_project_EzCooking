@@ -20,7 +20,7 @@ const getRecipesFromQuickSearch = async (req, res) => {
   }
   try {
     //Add to fetch call string depending on add filters
-    let baseString = `https://api.spoonacular.com/recipes/complexSearch?apiKey=${apiKey}&number=100`;
+    let baseString = `https://api.spoonacular.com/recipes/complexSearch?apiKey=${apiKey}&number=10`;
     if (mealFilters) {
       baseString += `&type=${mealFilters}`;
     }
@@ -67,7 +67,7 @@ const getRecipesFromDiet = async (req, res) => {
 
   try {
     const raw = await fetch(
-      `https://api.spoonacular.com/recipes/complexSearch?apiKey=${apiKey}&diet=${diet}&number=100`,
+      `https://api.spoonacular.com/recipes/complexSearch?apiKey=${apiKey}&diet=${diet}&number=10`,
       {
         header: {
           "Content-Type": "application/json",
@@ -102,7 +102,7 @@ const getRecipesFromMealTypes = async (req, res) => {
   try {
     console.log(type);
     const raw = await fetch(
-      `https://api.spoonacular.com/recipes/complexSearch?apiKey=${apiKey}&type=${type}&number=100`,
+      `https://api.spoonacular.com/recipes/complexSearch?apiKey=${apiKey}&type=${type}&number=10`,
       {
         header: {
           "Content-Type": "application/json",
@@ -152,7 +152,7 @@ const getRecipeFromId = async (req, res) => {
 //Ids
 const getRecipesFromId = async (req, res) => {
   let { ids } = req.params;
-
+  console.log(apiKey);
   console.log(ids);
   if (!ids) {
     return res.status(404).json({
@@ -164,7 +164,7 @@ const getRecipesFromId = async (req, res) => {
 
   try {
     const raw = await fetch(
-      `https://api.spoonacular.com/recipes/informationBulk?apiKey=${apiKey}?ids=${ids}?`,
+      `https://api.spoonacular.com/recipes/informationBulk?apiKey=${apiKey}&ids=${ids}`,
       {
         header: {
           "Content-Type": "application/json",
