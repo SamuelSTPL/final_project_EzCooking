@@ -1,51 +1,49 @@
 import React, { useContext, useRef, useState } from "react";
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 import { AuthContext } from "../Context/AuthContext";
 import { ColorSet } from "../../global/ColorSet";
 
-export const Login = () => {
+export const ForgotPassword = () => {
   const emailRef = useRef();
-  const passwordRef = useRef();
-  const { login } = useContext(AuthContext);
+  const { resetPassword } = useContext(AuthContext);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-  const history = useHistory();
+  const [message, setMessage] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
+      setMessage("");
       setError("");
       setLoading(true);
-      await login(emailRef.current.value, passwordRef.current.value);
-      history.push("/");
+      await resetPassword(emailRef.current.value);
+      setMessage("Check your inbox");
     } catch {
-      setError("Failed to login");
+      setError("Failed to reset password");
     }
     setLoading(false);
   };
   return (
     <Wrapper>
       <FormContainer>
-        <Title>Login</Title>
+        <Title>Reset</Title>
+        <Title>Password</Title>
         <Form onSubmit={handleSubmit}>
-          {error && <MessageContainer>{error}</MessageContainer>}
-          <Label>Email:</Label>
+          {message && <MessageContainer>{message}</MessageContainer>}
+          {error && <ErrorContainer>{error}</ErrorContainer>}
+          <Label>Email</Label>
           <Inputs type="email" ref={emailRef} />
-
-          <Label>Password:</Label>
-          <Inputs type="password" ref={passwordRef} required />
-
           <Button disabled={loading} type="submit">
-            Login
+            Reset Password
           </Button>
         </Form>
         <OtherOptionsContainer>
-          <StyledLink to="/signup">Sign Up</StyledLink>
-          <ForgotLink to="/forgot-password">Forgot Password?</ForgotLink>
+          <StyledLink to="/login">Log In</StyledLink>
         </OtherOptionsContainer>
+        <StyledLink to="/signup">Sign Up</StyledLink>
       </FormContainer>
     </Wrapper>
   );
@@ -71,7 +69,7 @@ const FormContainer = styled.div`
     align-items: center;
     width: 75%;
     margin: auto;
-    height: 590px;
+    height: 550px;
   }
 `;
 
@@ -79,7 +77,7 @@ const Form = styled.form`
   @media (max-width: 500px) {
     display: flex;
     flex-direction: column;
-    margin-top: 20px;
+    margin-top: 0px;
     width: 80%;
     border-bottom: 1px solid ${ColorSet.dark};
   }
@@ -91,7 +89,7 @@ const Title = styled.p`
   font-style: italic;
   @media (max-width: 500px) {
     font-size: 3rem;
-    margin-top: 40px;
+    margin-top: 20px;
   }
 `;
 
@@ -163,15 +161,8 @@ const StyledLink = styled(Link)`
   }
 `;
 
-const ForgotLink = styled(StyledLink)`
-  color: ${ColorSet.red};
-  &:hover {
-    border-bottom: 1px solid ${ColorSet.red};
-  }
-`;
-
 const MessageContainer = styled.div`
-  background-color: ${ColorSet.red};
+  background-color: ${ColorSet.primaryLight};
   display: flex;
   justify-content: center;
   align-items: center;
@@ -182,4 +173,7 @@ const MessageContainer = styled.div`
     height: 30px;
     border-radius: 10px;
   }
+`;
+const ErrorContainer = styled(MessageContainer)`
+  background-color: ${ColorSet.red};
 `;

@@ -12,11 +12,12 @@ export const Footer = () => {
 };
 
 const Wrapper = styled.footer`
+  /* align-self: flex-end; */
+  position: fixed;
   display: flex;
   justify-content: center;
   align-items: center;
   color: white;
-  position: absolute;
   bottom: 0px;
   height: 40px;
   width: 100%;

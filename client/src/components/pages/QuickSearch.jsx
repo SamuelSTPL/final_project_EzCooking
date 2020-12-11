@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
+import { LoadingIcon } from "../LoadingIcon";
 
 import {
   requestRecipesData,
@@ -19,8 +20,6 @@ export const QuickSearch = () => {
   let filteredRecipes = useSelector((state) => {
     return state.recipesReducer.filtered.recipes;
   });
-
-  console.log("Returned recipes from BE", filteredRecipes);
 
   //Fetch recipes
   const fetchRecipesFromQuickSearch = async () => {
@@ -62,7 +61,9 @@ export const QuickSearch = () => {
           return <li key={recipe.title}>{recipe.title}</li>;
         })
       ) : (
-        <div>Loading...</div>
+        <>
+          <LoadingIcon />
+        </>
       )}
     </Wrapper>
   );
@@ -74,7 +75,7 @@ const Wrapper = styled.div`
 const SearchContainer = styled.div`
   @media (max-width: 500px) {
     width: 100%;
-    background-color: rgba(130, 183, 75, 0.5);
+    background-color: ${ColorSet.primaryLight};
     padding: 7px 0px;
     border-bottom: 10px solid ${ColorSet.dark};
   }
@@ -103,5 +104,5 @@ const Buttons = styled.button`
 `;
 
 const Clear = styled(Buttons)`
-  color: rgb(238, 119, 98);
+  color: ${ColorSet.red};
 `;

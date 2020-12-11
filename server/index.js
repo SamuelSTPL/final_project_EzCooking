@@ -6,6 +6,7 @@ const {
   getRecipesFromDiet,
   getRecipesFromMealTypes,
   getRecipeFromId,
+  getRecipesFromId,
 } = require("./handler");
 
 const PORT = 4000;
@@ -40,6 +41,9 @@ express()
 
   //Fetch a single Recipe by Id
   .get("/recipe/:id", getRecipeFromId)
+
+  //Fetch many Recipes by Id
+  .get("/recipes/:ids", getRecipesFromId)
 
   //Port
   .listen(PORT, () => console.info(`Listening on port ${PORT}`));

@@ -5,35 +5,46 @@ import {
   Route,
   Redirect,
 } from "react-router-dom";
+import styled from "styled-components";
 
 import { Header } from "./components/Header";
 import { Footer } from "./components/Footer";
 import { GlobalStyle } from "./global/GlobalStyle";
 import { Homepage } from "./components/Homepage";
 import { Menu } from "./components/hamburgerMenu/Menu";
-import { MyRecipes, Login } from "./components/pages/index";
+import {
+  MyRecipes,
+  Login,
+  SignUp,
+  ForgotPassword,
+  RecipeDetails,
+} from "./components/pages/index";
 
 function App() {
   return (
     <Router>
+      {/* <Wrapper> */}
       <GlobalStyle />
       <Header />
       <Switch>
-        <Route path="/home">
-          <Homepage />
-        </Route>
-        <Route exact path="/myrecipes">
-          <MyRecipes />
-        </Route>
-        <Route exact path="/login">
-          <Login />
-        </Route>
+        <Route path="/home" component={Homepage} />
+        <Route exact path="/myrecipes" component={MyRecipes} />
+        <Route exact path="/recipe-details/:id" component={RecipeDetails} />
+        <Route exact path="/login" component={Login} />
+        <Route exact path="/signup" component={SignUp} />
+        <Route exact path="/forgot-password" component={ForgotPassword} />
         <Redirect exact from="/" to="/home" />
       </Switch>
       <Menu />
       <Footer />
+      {/* </Wrapper> */}
     </Router>
   );
 }
+
+// const Wrapper = styled.div`
+//   display: flex;
+//   flex-direction: column;
+// `;
 
 export default App;

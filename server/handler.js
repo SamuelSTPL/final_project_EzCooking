@@ -4,7 +4,6 @@ const { sortRecepies } = require("./Utils/utils");
 const apiKey = process.env.SPOONACULAR_API;
 
 // TODO:
-// Randomize recipes for diet and type ??
 //Use Offset to implement a pagination
 
 //Quick Search
@@ -150,9 +149,39 @@ const getRecipeFromId = async (req, res) => {
   }
 };
 
+//Ids
+const getRecipesFromId = async (req, res) => {
+  let { ids } = req.params;
+  console.log(apiKey);
+  console.log(ids);
+  if (!ids) {
+    return res.status(404).json({
+      status: 404,
+      message: "Please enter valid recipe id",
+      data: id,
+    });
+  }
+
+  try {
+    const raw = await fetch(
+      `https://api.spoonacular.com/recipes/informationBulk?apiKey=${apiKey}&ids=${ids}`,
+      {
+        header: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    const data = await raw.json();
+    res.status(200).json({ status: 200, message: "Success", data: data });
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
 module.exports = {
   getRecipesFromQuickSearch,
   getRecipesFromDiet,
   getRecipesFromMealTypes,
   getRecipeFromId,
+  getRecipesFromId,
 };
