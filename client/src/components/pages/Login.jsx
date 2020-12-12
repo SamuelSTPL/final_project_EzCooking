@@ -20,7 +20,7 @@ export const Login = () => {
       setError("");
       setLoading(true);
       await login(emailRef.current.value, passwordRef.current.value);
-      history.push("/");
+      history.push("/myrecipes");
     } catch {
       setError("Failed to login");
     }
