@@ -152,8 +152,9 @@ const getRecipeFromId = async (req, res) => {
 //Ids
 const getRecipesFromId = async (req, res) => {
   let { ids } = req.params;
-  console.log(apiKey);
+
   console.log(ids);
+
   if (!ids) {
     return res.status(404).json({
       status: 404,

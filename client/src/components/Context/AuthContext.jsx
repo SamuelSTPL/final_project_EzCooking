@@ -18,7 +18,7 @@ export const AuthProvider = ({ children }) => {
     await db.collection("users").doc(userCredentials.user.uid).set({
       email: email,
       name: name,
-      favortires: [],
+      favorites: [],
     });
   };
 
@@ -53,7 +53,6 @@ export const AuthProvider = ({ children }) => {
       let res = await favoriteRef.update({
         favorites: firebase.firestore.FieldValue.arrayUnion(id),
       });
-      console.log(res);
     }
   };
 
@@ -67,11 +66,11 @@ export const AuthProvider = ({ children }) => {
       }
       setLoading(false);
     });
-    console.log(unsubscribe);
     return () => {
       unsubscribe();
     };
   }, []);
+
   return (
     <AuthContext.Provider
       value={{

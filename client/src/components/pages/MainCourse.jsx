@@ -18,7 +18,7 @@ export const MainCourse = () => {
   let filteredRecipes = useSelector((state) => {
     return state.recipesReducer.mainCourse.recipes;
   });
-
+  // let filteredRecipes;
   console.log(filteredRecipes);
 
   const handleClick = (id) => {
