@@ -73,15 +73,16 @@ const Input = styled.input`
   }
 `;
 const Submit = styled.button`
+  box-shadow: 0px 10px 13px -7px gray;
+  border: 3px solid ${ColorSet.primary};
   @media (max-width: 500px) {
     font-weight: bold;
     font-size: 1.1rem;
     border-radius: 10px;
-    border: none;
     height: 30px;
-    width: 100px;
+    width: 130px;
     margin-left: 15px;
     color: ${ColorSet.primary};
-    background-color: ${ColorSet.dark};
+    background-color: white;
   }
 `;

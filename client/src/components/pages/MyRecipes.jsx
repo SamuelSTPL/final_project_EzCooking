@@ -54,6 +54,7 @@ export const MyRecipes = () => {
   }, [currentUserId, favoritesRecipeId]);
 
   console.log(favoritesRecipe);
+
   return (
     <Wrapper>
       {currentUser ? (
@@ -62,7 +63,10 @@ export const MyRecipes = () => {
             <Text>Welcome back,</Text>
             <UserName>{currentUser.name}</UserName>
           </NameContainer>
-          {favoritesRecipe ? (
+          <TitleContainer>
+            <FavoriteTitle>My Favorites</FavoriteTitle>
+          </TitleContainer>
+          {favoritesRecipe.length > 0 ? (
             favoritesRecipe.map((favoriteRecipe) => {
               return (
                 <Recipe onClick={() => handleClick(favoriteRecipe.id)}>
@@ -72,27 +76,33 @@ export const MyRecipes = () => {
               );
             })
           ) : (
-            <div>Add recipes to your favorites!</div>
+            <NoRecipesContainer>
+              Add recipes to your favorites first
+            </NoRecipesContainer>
           )}
-          <button
-            onClick={() => {
-              signOut();
-              history.push("/login");
-            }}
-          >
-            Sign Out
-          </button>
+          <ButtonContainer>
+            <LogOut
+              onClick={() => {
+                signOut();
+                history.push("/login");
+              }}
+            >
+              Sign Out
+            </LogOut>
+          </ButtonContainer>
         </SignedInContainer>
       ) : (
         <NoUserContainer>
-          <div>
-            You need an accout to save your favorite recipes!
-            <Link to="/signup">Sign me up!</Link>
-          </div>
-          <div>
-            You already have an account?
-            <Link to="/login">Login</Link>
-          </div>
+          <LinkContainer>
+            <TextForLinks>
+              You need an accout to save your favorite recipes!
+            </TextForLinks>
+            <StyledLinks to="/signup">Sign me up!</StyledLinks>
+          </LinkContainer>
+          <LinkContainer>
+            <TextForLinks>You already have an account?</TextForLinks>
+            <StyledLinks to="/login">Login</StyledLinks>
+          </LinkContainer>
         </NoUserContainer>
       )}
     </Wrapper>
@@ -101,13 +111,14 @@ export const MyRecipes = () => {
 
 const Wrapper = styled.div`
   height: 100%;
+  min-height: 85vh;
   background-color: ${ColorSet.primaryLight};
   @media (max-width: 500px) {
   }
 `;
 
 const SignedInContainer = styled.div`
-  min-height: 85vh;
+  height: 100%;
   @media (max-width: 500px) {
   }
 `;
@@ -123,8 +134,23 @@ const NameContainer = styled.div`
 `;
 
 const NoUserContainer = styled(SignedInContainer)`
-  height: 100%;
+  height: 85vh;
   @media (max-width: 500px) {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+`;
+
+const LinkContainer = styled.div`
+  width: 100%;
+  @media (max-width: 500px) {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 60px;
   }
 `;
 
@@ -154,8 +180,14 @@ const Recipe = styled.button`
   }
 `;
 
-const RecipesContainer = styled.div`
+const NoRecipesContainer = styled.div`
   @media (max-width: 500px) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 550px;
+    font-style: italic;
+    color: ${ColorSet.dark};
   }
 `;
 
@@ -171,5 +203,67 @@ const Title = styled.p`
   @media (max-width: 500px) {
     margin: 10px auto;
     font-size: 1.5rem;
+  }
+`;
+
+const FavoriteTitle = styled.p`
+  @media (max-width: 500px) {
+    font-size: 1.9rem;
+    color: ${ColorSet.dark};
+    text-decoration: underline;
+    font-weight: bold;
+  }
+`;
+
+const TitleContainer = styled.div`
+  @media (max-width: 500px) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 10px auto;
+    height: 50px;
+  }
+`;
+
+const ButtonContainer = styled.div`
+  background-color: transparent;
+  bottom: 0;
+  @media (max-width: 500px) {
+    display: flex;
+    justify-content: center;
+    height: 120px;
+  }
+`;
+
+const LogOut = styled.button`
+  &:focus {
+    outline: none;
+  }
+  &:hover {
+    cursor: pointer;
+  }
+
+  @media (max-width: 500px) {
+    font-size: 1.3rem;
+    height: 40px;
+    width: 200px;
+    margin-top: 15px;
+    border: 3px solid ${ColorSet.red};
+    color: ${ColorSet.red};
+    background-color: white;
+    border-radius: 10px;
+  }
+`;
+
+const TextForLinks = styled.p`
+  @media (max-width: 500px) {
+    font-size: 1.3rem;
+  }
+`;
+
+const StyledLinks = styled(Link)`
+  @media (max-width: 500px) {
+    font-size: 1.3rem;
+    color: ${ColorSet.dark};
   }
 `;

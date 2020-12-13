@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
 import styled from "styled-components";
+import { ColorSet } from "../../global/ColorSet";
 
 import { FiltersContext } from "../Context/FiltersContext";
 
@@ -53,6 +54,8 @@ const Filter = styled.li`
   font-size: 1.5rem;
   @media (max-width: 500px) {
     margin: 0.5rem 20px;
+    font-style: italic;
+    color: ${ColorSet.dark};
   }
 `;
 
@@ -60,7 +63,7 @@ const NoFilter = styled.p`
   @media (max-width: 500px) {
     align-self: center;
     margin-top: 0.8rem;
-    color: gray;
+    color: ${ColorSet.dark};
     font-style: italic;
   }
 `;
