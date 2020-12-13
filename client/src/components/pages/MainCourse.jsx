@@ -76,6 +76,14 @@ const RecipesContainer = styled.div`
 `;
 
 const Recipe = styled.button`
+  background-color: white;
+  color: ${ColorSet.dark};
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0px 10px 13px -7px gray, 5px 5px 15px 5px rgba(0, 0, 0, 0);
+  &:hover {
+    cursor: pointer;
+  }
   @media (max-width: 500px) {
     width: 95%;
     display: flex;

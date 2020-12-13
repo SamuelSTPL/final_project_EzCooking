@@ -9,9 +9,11 @@ import {
   receivedRecipesDataError,
   receivedRecipesData,
 } from "../../reducers/actions";
+import { useHistory } from "react-router-dom";
 
 export const Dessert = () => {
   const dispatch = useDispatch();
+  const history = useHistory();
   let filteredRecipes = useSelector((state) => {
     return state.recipesReducer.dessert.recipes;
   });
@@ -28,6 +30,9 @@ export const Dessert = () => {
       console.log(error.message);
     }
   };
+  const handleClick = (id) => {
+    history.push(`/recipe-details/${id}`);
+  };
 
   useEffect(() => {
     dispatch(requestRecipesData());
@@ -40,7 +45,7 @@ export const Dessert = () => {
         filteredRecipes.map((recipe) => {
           return (
             <RecipesContainer key={recipe.id}>
-              <Recipe>
+              <Recipe onClick={() => handleClick(recipe.id)}>
                 <Img src={recipe.image} />
                 <Title>{recipe.title}</Title>
               </Recipe>
@@ -67,6 +72,14 @@ const RecipesContainer = styled.div`
 `;
 
 const Recipe = styled.button`
+  background-color: white;
+  color: ${ColorSet.dark};
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0px 10px 13px -7px gray, 5px 5px 15px 5px rgba(0, 0, 0, 0);
+  &:hover {
+    cursor: pointer;
+  }
   @media (max-width: 500px) {
     width: 95%;
     display: flex;
