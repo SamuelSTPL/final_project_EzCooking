@@ -39,10 +39,18 @@ export const IngredientsFilter = () => {
 };
 
 const IngredientsContainer = styled.form`
+  display: flex;
   width: 100%;
+  justify-content: center;
+  align-items: center;
+  font-size: 2rem;
+  margin-top: 20px;
+  margin-left: 40px;
   @media (max-width: 500px) {
+    font-size: 1rem;
+    margin-left: auto;
+    display: block;
     text-align: center;
-    margin-top: 20px;
   }
 `;
 const Label = styled.label`
@@ -62,27 +70,31 @@ const InputContainer = styled.div`
 const Input = styled.input`
   font-size: 1.5rem;
   padding-left: 10px;
+  border-radius: 10px;
+  height: 30px;
+  border: none;
+  width: 270px;
+  margin-left: 20px;
   &:focus {
     outline: none;
   }
   @media (max-width: 500px) {
-    border-radius: 10px;
-    height: 30px;
-    border: none;
+    margin-left: 0;
     width: 230px;
   }
 `;
 const Submit = styled.button`
   box-shadow: 0px 10px 13px -7px gray;
   border: 3px solid ${ColorSet.primary};
+  font-weight: bold;
+  font-size: 1.1rem;
+  width: 130px;
+  border-radius: 10px;
+  color: ${ColorSet.primary};
+  background-color: white;
+  margin-left: 15px;
   @media (max-width: 500px) {
-    font-weight: bold;
-    font-size: 1.1rem;
-    border-radius: 10px;
     height: 30px;
-    width: 130px;
-    margin-left: 15px;
-    color: ${ColorSet.primary};
-    background-color: white;
+    font-size: 1.1rem;
   }
 `;

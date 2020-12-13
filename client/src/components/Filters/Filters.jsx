@@ -47,7 +47,7 @@ export const Filters = () => {
 
 const Wrapper = styled.div`
   display: flex;
-  justify-content: space-around;
+  /* justify-content: space-around; */
   width: 100%;
   @media (max-width: 500px) {
     display: block;
@@ -61,22 +61,31 @@ const IngredientInputContainer = styled.div`
 `;
 
 const DropdownWrapper = styled.div`
+  min-height: 100%;
+  display: flex;
+  margin: 1.5rem 0 0 200px;
   @media (max-width: 500px) {
-    display: flex;
     justify-content: space-around;
     margin-bottom: 20px;
+    margin-left: 0px;
   }
 `;
 
 const DropdownContainers = styled.div`
+  display: flex;
+  align-items: center;
   @media (max-width: 500px) {
-    display: flex;
-    align-items: center;
   }
 `;
 
 const TitleContainerWrapper = styled.div``;
 
 const Title = styled.p`
-  margin-right: 9px;
+  margin-right: 15px;
+  margin-left: 30px;
+  font-size: 1.3rem;
+  @media (max-width: 500px) {
+    font-size: 1rem;
+    margin-right: 9px;
+  }
 `;

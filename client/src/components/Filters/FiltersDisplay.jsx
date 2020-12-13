@@ -33,37 +33,43 @@ const Wrapper = styled.div`
 `;
 
 const FiltersContainer = styled.div`
+  height: 40px;
+  border-radius: 10px;
+  width: 50%;
+  margin: 30px auto;
+  text-align: center;
+  background-color: white;
   @media (max-width: 500px) {
     position: relative;
     margin: auto;
     width: 90%;
     display: flex;
     flex-direction: column;
-    background-color: white;
-    height: 40px;
-    border-radius: 10px;
   }
 `;
 const List = styled.ul`
+  display: flex;
+  justify-content: center;
   @media (max-width: 500px) {
-    display: flex;
-    justify-content: center;
   }
 `;
 const Filter = styled.li`
-  font-size: 1.5rem;
+  font-size: 2rem;
+  margin-right: 20px;
+  font-style: italic;
+  color: ${ColorSet.dark};
   @media (max-width: 500px) {
-    margin: 0.5rem 20px;
-    font-style: italic;
-    color: ${ColorSet.dark};
+    font-size: 1.5rem;
   }
 `;
 
 const NoFilter = styled.p`
+  color: ${ColorSet.dark};
+  font-style: italic;
+  align-self: center;
+  padding-top: 10px;
   @media (max-width: 500px) {
-    align-self: center;
+    padding-top: 0px;
     margin-top: 0.8rem;
-    color: ${ColorSet.dark};
-    font-style: italic;
   }
 `;
