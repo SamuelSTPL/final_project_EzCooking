@@ -41,37 +41,41 @@ export const Dessert = () => {
 
   return (
     <Wrapper>
-      {filteredRecipes ? (
-        filteredRecipes.map((recipe) => {
-          return (
-            <RecipesContainer key={recipe.id}>
-              <Recipe onClick={() => handleClick(recipe.id)}>
-                <Img src={recipe.image} />
-                <Title>{recipe.title}</Title>
-              </Recipe>
-            </RecipesContainer>
-          );
-        })
-      ) : (
-        <>
-          <LoadingIcon />
-        </>
-      )}
+      <RecipesColumns>
+        {filteredRecipes ? (
+          filteredRecipes.map((recipe) => {
+            return (
+              <RecipesContainer key={recipe.id}>
+                <Recipe onClick={() => handleClick(recipe.id)}>
+                  <Img src={recipe.image} />
+                  <Title>{recipe.title}</Title>
+                </Recipe>
+              </RecipesContainer>
+            );
+          })
+        ) : (
+          <LoadingWrapper>
+            <LoadingIcon />
+          </LoadingWrapper>
+        )}
+      </RecipesColumns>
     </Wrapper>
   );
 };
-
 const Wrapper = styled.div`
-  background-color: ${ColorSet.primaryLight};
+  background-color: ${ColorSet.primaryExtraLight};
   width: 100%;
-`;
-
-const RecipesContainer = styled.div`
   @media (max-width: 500px) {
+    background-color: ${ColorSet.primaryLight};
   }
 `;
 
+const RecipesContainer = styled.div``;
+
 const Recipe = styled.button`
+  margin: 20px;
+  margin-left: 50px;
+  width: 700px;
   background-color: white;
   color: ${ColorSet.dark};
   border: none;
@@ -89,24 +93,39 @@ const Recipe = styled.button`
   }
 `;
 const Img = styled.img`
+  border-radius: 15%;
+  width: 85%;
+  margin-top: 10px;
   @media (max-width: 500px) {
     width: 380px;
-    border-radius: 15%;
-    margin-top: 10px;
   }
 `;
 
 const Title = styled.p`
+  font-size: 2rem;
+  margin: 10px auto;
+  min-height: 80px;
   @media (max-width: 500px) {
-    margin: 10px auto;
     font-size: 1.5rem;
+    min-height: 30px;
   }
 `;
 
-const Loading = styled.div`
-  min-width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+const RecipesColumns = styled.div`
+  column-count: 2;
+  width: 100%;
+  margin-bottom: 30px;
+  @media (max-width: 500px) {
+    column-count: 1;
+  }
+`;
+
+const LoadingWrapper = styled.div`
+  position: absolute;
+  left: 55%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  @media (max-width: 500px) {
+    left: 50%;
+  }
 `;

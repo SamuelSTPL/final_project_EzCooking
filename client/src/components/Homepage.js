@@ -41,6 +41,7 @@ export const Homepage = () => {
 
 const Wrapper = styled.div`
   display: flex;
+  min-height: 90vh;
   @media (max-width: 500px) {
     /* background-color: white; */
     /* background-color: rgba(130, 183, 75, 0.5); */

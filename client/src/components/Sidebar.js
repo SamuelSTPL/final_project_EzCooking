@@ -30,11 +30,13 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: rgba(130, 183, 75, 0.5);
-  height: 90vh;
+  background-color: ${ColorSet.primaryLight};
+  height: 100%;
+  border-right: 10px solid ${ColorSet.dark};
 `;
 
 const Link = styled(NavLink)`
+  /* color: white; */
   color: ${ColorSet.dark};
   text-decoration: none;
   margin-top: 70px;
@@ -46,6 +48,6 @@ const Link = styled(NavLink)`
 
 const Li = styled.li`
   list-style: none;
-  margin-top: 70px;
+  margin-top: 110px;
   font-weight: bold;
 `;

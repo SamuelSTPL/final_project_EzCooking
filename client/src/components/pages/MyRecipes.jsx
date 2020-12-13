@@ -111,7 +111,7 @@ export const MyRecipes = () => {
 
 const Wrapper = styled.div`
   height: 100%;
-  min-height: 85vh;
+  min-height: 90vh;
   background-color: ${ColorSet.primaryLight};
   @media (max-width: 500px) {
   }
@@ -124,33 +124,34 @@ const SignedInContainer = styled.div`
 `;
 
 const NameContainer = styled.div`
+  height: 50px;
+  background-color: ${ColorSet.dark};
+  display: flex;
+  justify-content: center;
+  align-items: center;
   @media (max-width: 500px) {
     height: 70px;
-    background-color: ${ColorSet.dark};
-    display: flex;
-    justify-content: center;
-    align-items: center;
   }
 `;
 
 const NoUserContainer = styled(SignedInContainer)`
   height: 85vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   @media (max-width: 500px) {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
   }
 `;
 
 const LinkContainer = styled.div`
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 60px;
   @media (max-width: 500px) {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    margin-top: 60px;
   }
 `;
 
@@ -158,6 +159,7 @@ const UserName = styled.span`
   color: ${ColorSet.primary};
   margin: auto 15px;
   font-style: italic;
+  font-size: 1.9rem;
   @media (max-width: 500px) {
     font-size: 1.6rem;
   }
@@ -165,12 +167,24 @@ const UserName = styled.span`
 
 const Text = styled.span`
   color: white;
+  font-size: 1.4rem;
   @media (max-width: 500px) {
-    font-size: 1.4rem;
+    font-size: 1.7rem;
   }
 `;
 
 const Recipe = styled.button`
+  margin: 20px;
+  margin-left: 50px;
+  width: 550px;
+  background-color: white;
+  color: ${ColorSet.dark};
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0px 10px 13px -7px gray, 5px 5px 15px 5px rgba(0, 0, 0, 0);
+  &:hover {
+    cursor: pointer;
+  }
   @media (max-width: 500px) {
     width: 95%;
     display: flex;
@@ -181,57 +195,72 @@ const Recipe = styled.button`
 `;
 
 const NoRecipesContainer = styled.div`
+  font-size: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 550px;
+  font-style: italic;
+  color: ${ColorSet.dark};
   @media (max-width: 500px) {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 550px;
-    font-style: italic;
-    color: ${ColorSet.dark};
+    font-size: 1rem;
   }
 `;
 
 const Img = styled.img`
+  border-radius: 15%;
+  width: 85%;
+  margin-top: 10px;
   @media (max-width: 500px) {
     width: 380px;
-    border-radius: 15%;
-    margin-top: 10px;
   }
 `;
 
 const Title = styled.p`
+  font-size: 2rem;
+  margin: 10px auto;
+  min-height: 80px;
   @media (max-width: 500px) {
-    margin: 10px auto;
     font-size: 1.5rem;
+    min-height: 30px;
+  }
+`;
+
+const RecipesColumns = styled.div`
+  column-count: 2;
+  width: 100%;
+  margin-bottom: 30px;
+  @media (max-width: 500px) {
+    column-count: 1;
   }
 `;
 
 const FavoriteTitle = styled.p`
+  font-size: 1.9rem;
+  color: ${ColorSet.dark};
+  text-decoration: underline;
+  font-weight: bold;
   @media (max-width: 500px) {
-    font-size: 1.9rem;
-    color: ${ColorSet.dark};
-    text-decoration: underline;
-    font-weight: bold;
   }
 `;
 
 const TitleContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 10px auto;
+  height: 50px;
   @media (max-width: 500px) {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 10px auto;
-    height: 50px;
   }
 `;
 
 const ButtonContainer = styled.div`
   background-color: transparent;
   bottom: 0;
+  display: flex;
+  justify-content: center;
+  height: 120px;
   @media (max-width: 500px) {
-    display: flex;
-    justify-content: center;
-    height: 120px;
   }
 `;
 
@@ -243,27 +272,28 @@ const LogOut = styled.button`
     cursor: pointer;
   }
 
+  font-size: 1.3rem;
+  height: 40px;
+  width: 200px;
+  margin-top: 50px;
+  border: 3px solid ${ColorSet.red};
+  color: ${ColorSet.red};
+  background-color: white;
+  border-radius: 10px;
   @media (max-width: 500px) {
-    font-size: 1.3rem;
-    height: 40px;
-    width: 200px;
     margin-top: 15px;
-    border: 3px solid ${ColorSet.red};
-    color: ${ColorSet.red};
-    background-color: white;
-    border-radius: 10px;
   }
 `;
 
 const TextForLinks = styled.p`
+  font-size: 1.3rem;
   @media (max-width: 500px) {
-    font-size: 1.3rem;
   }
 `;
 
 const StyledLinks = styled(Link)`
+  font-size: 1.3rem;
+  color: ${ColorSet.dark};
   @media (max-width: 500px) {
-    font-size: 1.3rem;
-    color: ${ColorSet.dark};
   }
 `;

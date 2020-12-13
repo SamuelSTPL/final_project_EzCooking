@@ -29,11 +29,11 @@ const List = styled.select`
   &:focus {
     outline: none;
   }
+  background-color: white;
+  border-radius: 10px;
+  padding: 5px 5px 5px 10px;
+  height: 25px;
   @media (max-width: 500px) {
-    background-color: white;
-    border-radius: 10px;
-    height: 25px;
-    padding: 5px 5px 5px 10px;
   }
 `;
 const Items = styled.option``;
