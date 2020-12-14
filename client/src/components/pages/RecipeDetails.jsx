@@ -167,12 +167,14 @@ const Diet = styled.span`
 `;
 
 const TitleAndScoreContainer = styled.div`
+  width: 80%;
   margin-top: 15px;
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
   align-items: center;
   height: 50px;
   @media (max-width: 500px) {
+    width: 100%;
   }
 `;
 
@@ -185,7 +187,7 @@ const Title = styled.p`
 `;
 
 const Score = styled.div`
-  margin-left: 30px;
+  margin-left: 20px;
   border: 3px solid ${ColorSet.dark};
   padding: 10px;
   background-color: white;
@@ -238,8 +240,8 @@ const InstructionsContainer = styled.div`
 const Instructions = styled.p`
   font-size: 1.3rem;
   color: ${ColorSet.dark};
+  margin-top: 10px;
   @media (max-width: 500px) {
-    margin-top: 10px;
   }
 `;
 
